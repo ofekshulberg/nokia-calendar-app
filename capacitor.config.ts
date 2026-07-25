@@ -10,8 +10,12 @@ const config: CapacitorConfig = {
   plugins: {
     LocalNotifications: {
       smallIcon: 'ic_stat_icon_config_sample',
-      iconColor: '#13B0F5',
+      iconColor: '#d4a5a5',
       sound: 'default',
+      vibrate: true,
+    },
+    'CapacitorCookies': {
+      enabled: true,
     },
   },
 };
