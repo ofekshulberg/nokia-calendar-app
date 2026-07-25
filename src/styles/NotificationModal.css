@@ -1,0 +1,139 @@
+.notification-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+  z-index: 1002;
+}
+
+.notification-modal {
+  background-color: var(--color-light-surface);
+  border-radius: 16px 16px 0 0;
+  padding: 24px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.app.dark-mode .notification-modal {
+  background-color: var(--color-dark-surface);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.notification-modal h2 {
+  margin: 0 0 16px 0;
+  color: var(--color-light-text);
+  font-size: 20px;
+}
+
+.app.dark-mode .notification-modal h2 {
+  color: var(--color-dark-text);
+}
+
+.modal-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-light-text);
+}
+
+.app.dark-mode .modal-group label {
+  color: var(--color-dark-text);
+}
+
+.modal-group input[type='date'],
+.modal-group input[type='time'],
+.modal-group select,
+.modal-group textarea {
+  padding: 12px;
+  border: 1px solid var(--color-light-border);
+  border-radius: 6px;
+  font-size: 16px;
+  background-color: var(--color-light-surface);
+  color: var(--color-light-text);
+  font-family: inherit;
+}
+
+.app.dark-mode .modal-group input[type='date'],
+.app.dark-mode .modal-group input[type='time'],
+.app.dark-mode .modal-group select,
+.app.dark-mode .modal-group textarea {
+  border-color: var(--color-dark-border);
+  background-color: var(--color-dark-surface);
+  color: var(--color-dark-text);
+}
+
+.modal-group textarea {
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.delete-button,
+.cancel-button,
+.done-button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.delete-button {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.delete-button:active {
+  transform: scale(0.98);
+}
+
+.cancel-button {
+  background-color: var(--color-light-border);
+  color: var(--color-light-text);
+}
+
+.app.dark-mode .cancel-button {
+  background-color: var(--color-dark-border);
+  color: var(--color-dark-text);
+}
+
+.cancel-button:active {
+  transform: scale(0.98);
+}
+
+.done-button {
+  background-color: var(--color-light-accent);
+  color: white;
+}
+
+.app.dark-mode .done-button {
+  background-color: var(--color-dark-accent);
+}
+
+.done-button:active {
+  transform: scale(0.98);
+}

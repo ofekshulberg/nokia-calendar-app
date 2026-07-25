@@ -1,0 +1,49 @@
+.calendar-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px;
+  background-color: var(--color-light-bg);
+}
+
+.app.dark-mode .calendar-page {
+  background-color: var(--color-dark-bg);
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 16px;
+}
+
+.calendar-grid-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.calendar-grid-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.app.light-mode .calendar-grid-container::-webkit-scrollbar-track {
+  background: var(--color-light-bg);
+}
+
+.app.dark-mode .calendar-grid-container::-webkit-scrollbar-track {
+  background: var(--color-dark-bg);
+}
+
+.app.light-mode .calendar-grid-container::-webkit-scrollbar-thumb {
+  background: var(--color-light-border);
+  border-radius: 3px;
+}
+
+.app.dark-mode .calendar-grid-container::-webkit-scrollbar-thumb {
+  background: var(--color-dark-border);
+  border-radius: 3px;
+}

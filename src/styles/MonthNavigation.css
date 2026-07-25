@@ -1,0 +1,82 @@
+.month-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  background-color: var(--color-light-surface);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.app.dark-mode .month-navigation {
+  background-color: var(--color-dark-surface);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.nav-arrow {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-color: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  color: var(--color-light-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app.dark-mode .nav-arrow {
+  color: var(--color-dark-text);
+}
+
+.nav-arrow:active {
+  background-color: var(--color-light-accent);
+}
+
+.app.dark-mode .nav-arrow:active {
+  background-color: var(--color-dark-accent);
+}
+
+.month-year-display {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.month-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-light-text);
+}
+
+.app.dark-mode .month-title {
+  color: var(--color-dark-text);
+}
+
+.year-button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: var(--color-light-text);
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  font-family: inherit;
+}
+
+.app.dark-mode .year-button {
+  color: var(--color-dark-text);
+}
+
+.year-button:active {
+  opacity: 1;
+}

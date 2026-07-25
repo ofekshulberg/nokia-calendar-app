@@ -1,0 +1,130 @@
+.year-picker-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.year-picker-modal {
+  background-color: var(--color-light-surface);
+  border-radius: 12px;
+  padding: 24px;
+  min-width: 280px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.app.dark-mode .year-picker-modal {
+  background-color: var(--color-dark-surface);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.year-picker-modal h2 {
+  margin: 0 0 20px 0;
+  color: var(--color-light-text);
+}
+
+.app.dark-mode .year-picker-modal h2 {
+  color: var(--color-dark-text);
+}
+
+.year-picker-controls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.year-decrement,
+.year-increment {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-light-border);
+  background-color: var(--color-light-surface);
+  border-radius: 6px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--color-light-text);
+}
+
+.app.dark-mode .year-decrement,
+.app.dark-mode .year-increment {
+  border-color: var(--color-dark-border);
+  background-color: var(--color-dark-surface);
+  color: var(--color-dark-text);
+}
+
+.year-decrement:active,
+.year-increment:active {
+  background-color: var(--color-light-accent);
+}
+
+.app.dark-mode .year-decrement:active,
+.app.dark-mode .year-increment:active {
+  background-color: var(--color-dark-accent);
+}
+
+.year-input {
+  flex: 1;
+  padding: 10px;
+  font-size: 18px;
+  border: 1px solid var(--color-light-border);
+  border-radius: 6px;
+  text-align: center;
+  color: var(--color-light-text);
+  background-color: var(--color-light-surface);
+}
+
+.app.dark-mode .year-input {
+  border-color: var(--color-dark-border);
+  background-color: var(--color-dark-surface);
+  color: var(--color-dark-text);
+}
+
+.year-picker-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.cancel-button,
+.confirm-button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.cancel-button {
+  background-color: var(--color-light-border);
+  color: var(--color-light-text);
+}
+
+.app.dark-mode .cancel-button {
+  background-color: var(--color-dark-border);
+  color: var(--color-dark-text);
+}
+
+.confirm-button {
+  background-color: var(--color-light-accent);
+  color: white;
+}
+
+.app.dark-mode .confirm-button {
+  background-color: var(--color-dark-accent);
+}
+
+.cancel-button:active,
+.confirm-button:active {
+  transform: scale(0.98);
+}

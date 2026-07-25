@@ -1,0 +1,112 @@
+.weekday-headers {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.weekday-header {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px;
+  color: var(--color-light-text);
+  opacity: 0.6;
+}
+
+.app.dark-mode .weekday-header {
+  color: var(--color-dark-text);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  flex: 1;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  border: 1px solid var(--color-light-border);
+  background-color: var(--color-light-surface);
+  border-radius: 4px;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--color-light-text);
+  text-align: center;
+  overflow: hidden;
+}
+
+.app.dark-mode .calendar-day {
+  background-color: var(--color-dark-surface);
+  border-color: var(--color-dark-border);
+  color: var(--color-dark-text);
+}
+
+.calendar-day.empty {
+  background-color: transparent;
+  border: none;
+  cursor: default;
+}
+
+.calendar-day.today {
+  background-color: var(--color-light-highlight);
+  border-color: var(--color-light-accent);
+  font-weight: 600;
+}
+
+.app.dark-mode .calendar-day.today {
+  background-color: var(--color-dark-highlight);
+  border-color: var(--color-dark-accent);
+}
+
+.calendar-day:active:not(.empty) {
+  transform: scale(0.95);
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.day-number {
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.day-notifications {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  width: 100%;
+  flex: 1;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.notification-badge {
+  font-size: 10px;
+  background-color: var(--color-light-accent);
+  color: white;
+  padding: 2px 4px;
+  border-radius: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app.dark-mode .notification-badge {
+  background-color: var(--color-dark-accent);
+}
+
+.notification-more {
+  font-size: 10px;
+  color: var(--color-light-accent);
+  font-weight: 600;
+}
+
+.app.dark-mode .notification-more {
+  color: var(--color-dark-accent);
+}
