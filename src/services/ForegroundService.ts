@@ -2,31 +2,36 @@ import { LocalNotifications } from '@capacitor/local-notifications'
 
 export async function startForegroundService() {
   try {
+    // Create notification channel for foreground service
     await LocalNotifications.createChannel({
       id: 'foreground',
-      name: 'Foreground Service',
-      importance: 3,
+      name: 'Calendar Running',
+      importance: 2,
       visibility: 1,
     })
 
-    // Show persistent foreground notification
-    await LocalNotifications.sendNotification({
-      id: -1, // Special ID for foreground notification
-      title: 'Nokia Calendar',
-      body: 'Calendar notifications are enabled',
-      channelId: 'foreground',
-      autoCancel: false,
-      largeBody: 'The app is running and monitoring for scheduled notifications',
+    // Schedule persistent notification
+    await LocalNotifications.schedule({
+      notifications: [
+        {
+          id: 999,
+          title: '📅 Nokia Calendar',
+          body: 'Calendar notifications enabled',
+          smallIcon: 'ic_notification',
+          channelId: 'foreground',
+          autoCancel: false,
+        },
+      ],
     })
   } catch (error) {
-    console.error('Failed to start foreground service:', error)
+    console.warn('Failed to start foreground service:', error)
   }
 }
 
 export async function stopForegroundService() {
   try {
-    await LocalNotifications.cancel({ notifications: [{ id: -1 }] })
+    await LocalNotifications.cancel({ notifications: [{ id: 999 }] })
   } catch (error) {
-    console.error('Failed to stop foreground service:', error)
+    console.warn('Failed to stop foreground service:', error)
   }
 }
