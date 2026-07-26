@@ -1,5 +1,4 @@
 import { LocalNotifications } from '@capacitor/local-notifications'
-import { useSettings } from '../context/SettingsContext'
 
 export interface NotificationOptions {
   id: string | number
@@ -39,7 +38,7 @@ function getNextNotificationDate(
   return next
 }
 
-// Schedule a single notification
+// Schedule a single notification with repeating sound for 60 seconds
 export async function scheduleNotification(options: NotificationOptions) {
   try {
     const [hours, minutes] = options.time.split(':').map(Number)
@@ -61,36 +60,46 @@ export async function scheduleNotification(options: NotificationOptions) {
         ? parseInt(options.id.replace(/\D/g, '')) % 2147483647
         : (options.id as number) % 2147483647
 
-    await LocalNotifications.schedule({
-      notifications: [
-        {
-          id,
-          title: options.title || 'Notification',
-          body: options.message,
-          schedule: {
-            at: notifDate,
-          },
-          sound: options.sound || 'default',
-          smallIcon: 'ic_stat_icon_0',
-          autoCancel: true,
-        },
-      ],
-    })
+    // Create multiple notifications at intervals for repeating sound
+    // Schedule sound alerts every 5 seconds for 60 seconds (12 times total)
+    const notifications = []
 
-    console.log('Notification scheduled:', options)
+    for (let i = 0; i < 12; i++) {
+      const alertTime = new Date(notifDate.getTime() + i * 5000) // 5 seconds apart
+
+      notifications.push({
+        id: id + i, // Different ID for each sound alert
+        title: i === 0 ? (options.title || 'Notification') : '', // Only show title on first alert
+        body: i === 0 ? options.message : '', // Only show message on first alert
+        schedule: {
+          at: alertTime,
+        },
+        sound: options.sound || 'default',
+        smallIcon: 'ic_stat_icon_0',
+        autoCancel: true,
+        vibrate: [100, 50, 100], // Vibration pattern: 100ms on, 50ms off, 100ms on
+      })
+    }
+
+    await LocalNotifications.schedule({ notifications })
+
+    console.log('Notification scheduled with repeating sound:', options)
   } catch (error) {
     console.error('Error scheduling notification:', error)
   }
 }
 
-// Cancel a notification
+// Cancel a notification (and all its sound alerts)
 export async function cancelNotification(id: string | number) {
   try {
     const numId =
       typeof id === 'string' ? parseInt(id.replace(/\D/g, '')) % 2147483647 : (id as number) % 2147483647
 
+    // Cancel all 12 notification IDs for this alert
+    const idsToCancel = Array.from({ length: 12 }, (_, i) => numId + i)
+
     await LocalNotifications.cancel({
-      notifications: [{ id: numId }],
+      notifications: idsToCancel.map((cancelId) => ({ id: cancelId })),
     })
 
     console.log('Notification cancelled:', id)
