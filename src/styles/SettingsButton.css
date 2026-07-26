@@ -1,28 +1,32 @@
 .settings-button {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border: none;
   background-color: var(--color-light-surface);
   border-radius: 8px;
-  font-size: 24px;
+  font-size: 20px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.15s cubic-bezier(0.2, 0, 0, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+  user-select: none;
 }
 
 .app.dark-mode .settings-button {
   background-color: var(--color-dark-surface);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .settings-button:active {
   background-color: var(--color-light-accent);
-  transform: scale(0.95);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
+  transform: scale(0.92);
 }
 
 .app.dark-mode .settings-button:active {
   background-color: var(--color-dark-accent);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
 }

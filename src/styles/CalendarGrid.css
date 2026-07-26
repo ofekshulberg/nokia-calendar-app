@@ -1,8 +1,8 @@
 .weekday-headers {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
-  margin-bottom: 8px;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 .weekday-header {
@@ -21,65 +21,72 @@
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
+  gap: 8px;
   flex: 1;
+  auto-rows: minmax(60px, 1fr);
 }
 
 .calendar-day {
   aspect-ratio: 1;
-  border: 1px solid var(--color-light-border);
+  border: 2px solid var(--color-light-border);
   background-color: var(--color-light-surface);
-  border-radius: 4px;
-  padding: 4px;
+  border-radius: 8px;
+  padding: 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   font-size: 12px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.15s cubic-bezier(0.2, 0, 0, 1);
   color: var(--color-light-text);
   text-align: center;
   overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .app.dark-mode .calendar-day {
   background-color: var(--color-dark-surface);
   border-color: var(--color-dark-border);
   color: var(--color-dark-text);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .calendar-day.empty {
   background-color: transparent;
   border: none;
   cursor: default;
+  box-shadow: none;
 }
 
 .calendar-day.today {
   background-color: var(--color-light-highlight);
   border-color: var(--color-light-accent);
   font-weight: 600;
+  box-shadow: 0 4px 12px rgba(212, 165, 165, 0.3);
 }
 
 .app.dark-mode .calendar-day.today {
   background-color: var(--color-dark-highlight);
   border-color: var(--color-dark-accent);
+  box-shadow: 0 4px 12px rgba(184, 136, 136, 0.3);
 }
 
 .calendar-day:active:not(.empty) {
   transform: scale(0.95);
-  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .day-number {
   font-weight: 600;
   margin-bottom: 2px;
+  font-size: 14px;
 }
 
 .day-notifications {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 2px;
   width: 100%;
   flex: 1;
   justify-content: flex-start;
@@ -87,14 +94,15 @@
 }
 
 .notification-badge {
-  font-size: 10px;
+  font-size: 9px;
   background-color: var(--color-light-accent);
   color: white;
-  padding: 2px 4px;
-  border-radius: 2px;
+  padding: 2px 3px;
+  border-radius: 3px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .app.dark-mode .notification-badge {
@@ -102,7 +110,7 @@
 }
 
 .notification-more {
-  font-size: 10px;
+  font-size: 9px;
   color: var(--color-light-accent);
   font-weight: 600;
 }

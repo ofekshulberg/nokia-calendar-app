@@ -17,7 +17,7 @@
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -25,7 +25,7 @@
 
 .app.dark-mode .notification-modal {
   background-color: var(--color-dark-surface);
-  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.5);
 }
 
 .notification-modal h2 {
@@ -59,12 +59,13 @@
 .modal-group select,
 .modal-group textarea {
   padding: 12px;
-  border: 1px solid var(--color-light-border);
+  border: 2px solid var(--color-light-border);
   border-radius: 6px;
   font-size: 16px;
   background-color: var(--color-light-surface);
   color: var(--color-light-text);
   font-family: inherit;
+  transition: all 0.15s ease;
 }
 
 .app.dark-mode .modal-group input[type='date'],
@@ -98,17 +99,20 @@
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.15s ease;
   font-family: inherit;
+  user-select: none;
 }
 
 .delete-button {
   background-color: #ff6b6b;
   color: white;
+  box-shadow: 0 2px 6px rgba(255, 107, 107, 0.3);
 }
 
 .delete-button:active {
   transform: scale(0.98);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .cancel-button {
@@ -123,17 +127,21 @@
 
 .cancel-button:active {
   transform: scale(0.98);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .done-button {
   background-color: var(--color-light-accent);
   color: white;
+  box-shadow: 0 2px 6px rgba(212, 165, 165, 0.3);
 }
 
 .app.dark-mode .done-button {
   background-color: var(--color-dark-accent);
+  box-shadow: 0 2px 6px rgba(184, 136, 136, 0.3);
 }
 
 .done-button:active {
   transform: scale(0.98);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
 }

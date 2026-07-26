@@ -4,6 +4,7 @@
   height: 100%;
   padding: 16px;
   background-color: var(--color-light-bg);
+  gap: 12px;
 }
 
 .app.dark-mode .calendar-page {
@@ -14,8 +15,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
-  gap: 16px;
+  gap: 12px;
+  width: 100%;
 }
 
 .calendar-grid-container {
