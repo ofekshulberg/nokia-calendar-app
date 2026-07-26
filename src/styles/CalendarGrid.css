@@ -1,1 +1,125 @@
-.weekday-headers {\n  display: grid;\n  grid-template-columns: repeat(7, 1fr);\n  gap: 6px;\n  margin-bottom: 8px;\n}\n\n.weekday-header {\n  text-align: center;\n  font-size: 11px;\n  font-weight: 600;\n  padding: 4px;\n  color: var(--color-light-text);\n  opacity: 0.6;\n}\n\n.app.dark-mode .weekday-header {\n  color: var(--color-dark-text);\n}\n\n.calendar-grid {\n  display: grid;\n  grid-template-columns: repeat(7, 1fr);\n  gap: 6px;\n  flex: 1;\n  auto-rows: 1fr;\n}\n\n.calendar-day {\n  border: 2px solid var(--color-light-border);\n  background-color: var(--color-light-surface);\n  border-radius: 8px;\n  padding: 8px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: flex-start;\n  font-size: 12px;\n  cursor: pointer;\n  transition: all 0.15s cubic-bezier(0.2, 0, 0, 1);\n  color: var(--color-light-text);\n  text-align: center;\n  overflow: hidden;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);\n  min-height: 80px;\n}\n\n.app.dark-mode .calendar-day {\n  background-color: var(--color-dark-surface);\n  border-color: var(--color-dark-border);\n  color: var(--color-dark-text);\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);\n}\n\n.calendar-day.empty {\n  background-color: transparent;\n  border: none;\n  cursor: default;\n  box-shadow: none;\n  min-height: auto;\n}\n\n.calendar-day.today {\n  background-color: var(--color-light-highlight);\n  border-color: var(--color-light-accent);\n  font-weight: 600;\n  box-shadow: 0 4px 12px rgba(212, 165, 165, 0.3);\n}\n\n.app.dark-mode .calendar-day.today {\n  background-color: var(--color-dark-highlight);\n  border-color: var(--color-dark-accent);\n  box-shadow: 0 4px 12px rgba(184, 136, 136, 0.3);\n}\n\n.calendar-day:active:not(.empty) {\n  transform: scale(0.95);\n  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);\n}\n\n.day-number {\n  font-weight: 700;\n  margin-bottom: 4px;\n  font-size: 16px;\n}\n\n.day-notifications {\n  display: flex;\n  flex-direction: column;\n  gap: 3px;\n  width: 100%;\n  flex: 1;\n  justify-content: flex-start;\n  overflow: hidden;\n}\n\n.notification-badge {\n  font-size: 10px;\n  background-color: var(--color-light-accent);\n  color: white;\n  padding: 3px 4px;\n  border-radius: 3px;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);\n  font-weight: 500;\n}\n\n.app.dark-mode .notification-badge {\n  background-color: var(--color-dark-accent);\n}\n\n.notification-more {\n  font-size: 10px;\n  color: var(--color-light-accent);\n  font-weight: 700;\n}\n\n.app.dark-mode .notification-more {\n  color: var(--color-dark-accent);\n}\n
+.weekday-headers {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.weekday-header {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px;
+  color: var(--color-light-text);
+  opacity: 0.7;
+}
+
+.app.dark-mode .weekday-header {
+  color: var(--color-dark-text);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  flex: 1;
+  width: 100%;
+}
+
+.calendar-day {
+  border: 2px solid var(--color-light-border);
+  background-color: var(--color-light-surface);
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.2, 0, 0, 1);
+  color: var(--color-light-text);
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  min-height: 90px;
+  aspect-ratio: 1 / 1.2;
+}
+
+.app.dark-mode .calendar-day {
+  background-color: var(--color-dark-surface);
+  border-color: var(--color-dark-border);
+  color: var(--color-dark-text);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.calendar-day.empty {
+  background-color: transparent;
+  border: none;
+  cursor: default;
+  box-shadow: none;
+  min-height: auto;
+}
+
+.calendar-day.today {
+  background-color: var(--color-light-highlight);
+  border-color: var(--color-light-accent);
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(212, 165, 165, 0.3);
+}
+
+.app.dark-mode .calendar-day.today {
+  background-color: var(--color-dark-highlight);
+  border-color: var(--color-dark-accent);
+  box-shadow: 0 4px 12px rgba(184, 136, 136, 0.3);
+}
+
+.calendar-day:active:not(.empty) {
+  transform: scale(0.95);
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.day-number {
+  font-weight: 700;
+  margin-bottom: 4px;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.day-notifications {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  flex: 1;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.notification-badge {
+  font-size: 10px;
+  background-color: var(--color-light-accent);
+  color: white;
+  padding: 3px 4px;
+  border-radius: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  font-weight: 500;
+}
+
+.app.dark-mode .notification-badge {
+  background-color: var(--color-dark-accent);
+}
+
+.notification-more {
+  font-size: 10px;
+  color: var(--color-light-accent);
+  font-weight: 700;
+}
+
+.app.dark-mode .notification-more {
+  color: var(--color-dark-accent);
+}
