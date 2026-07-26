@@ -12,7 +12,7 @@ export interface Notification {
 
 interface NotificationContextType {
   notifications: Notification[]
-  addNotification: (notification: Omit<Notification, 'id' | 'createdAt'>) => void
+  addNotification: (notification: Omit<Notification, 'id' | 'createdAt'>) => string
   updateNotification: (id: string, notification: Omit<Notification, 'id' | 'createdAt'>) => void
   deleteNotification: (id: string) => void
   getNotificationsForDate: (dateString: string) => Notification[]
@@ -41,13 +41,14 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
     localStorage.setItem('notifications', JSON.stringify(notifications))
   }, [notifications])
 
-  const addNotification = (notification: Omit<Notification, 'id' | 'createdAt'>) => {
+  const addNotification = (notification: Omit<Notification, 'id' | 'createdAt'>): string => {
     const newNotification: Notification = {
       ...notification,
       id: uuidv4(),
       createdAt: Date.now(),
     }
     setNotifications([...notifications, newNotification])
+    return newNotification.id
   }
 
   const updateNotification = (id: string, notification: Omit<Notification, 'id' | 'createdAt'>) => {
