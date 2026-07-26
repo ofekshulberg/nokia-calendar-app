@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import CalendarGrid from '../components/CalendarGrid'
-import MonthNavigation from '../components/MonthNavigation'
-import YearPicker from '../components/YearPicker'
 import SettingsButton from '../components/SettingsButton'
 import SettingsModal from '../components/SettingsModal'
+import YearPicker from '../components/YearPicker'
 import '../styles/Calendar.css'
 
 interface CalendarProps {
@@ -33,23 +32,47 @@ function Calendar({ onDateSelect }: CalendarProps) {
     currentDate.getFullYear() === today.getFullYear() &&
     currentDate.getMonth() === today.getMonth()
 
+  const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ]
+
+  const monthTitle = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`
+
   return (
     <div className="calendar-page">
       <div className="calendar-header">
-        <MonthNavigation
-          currentDate={currentDate}
-          onPrevMonth={handlePrevMonth}
-          onNextMonth={handleNextMonth}
-          onYearClick={() => setShowYearPicker(true)}
-        />
-        <SettingsButton onClick={() => setShowSettings(true)} />
+        <div className="title-bar">
+          <h1 className="calendar-title">{monthTitle}</h1>
+          <SettingsButton onClick={() => setShowSettings(true)} />
+        </div>
+
+        <div className="calendar-nav-controls">
+          <button className="nav-arrow" onClick={handlePrevMonth}>
+            ←
+          </button>
+          <div className="year-selector">
+            <button className="year-button" onClick={() => setShowYearPicker(true)}>
+              {currentDate.getFullYear()}
+            </button>
+          </div>
+          <button className="nav-arrow" onClick={handleNextMonth}>
+            →
+          </button>
+        </div>
       </div>
 
-      <CalendarGrid
-        currentDate={currentDate}
-        highlightToday={isCurrentMonth}
-        onDateSelect={onDateSelect}
-      />
+      <CalendarGrid currentDate={currentDate} highlightToday={isCurrentMonth} onDateSelect={onDateSelect} />
 
       {showYearPicker && (
         <YearPicker
@@ -59,9 +82,7 @@ function Calendar({ onDateSelect }: CalendarProps) {
         />
       )}
 
-      {showSettings && (
-        <SettingsModal onClose={() => setShowSettings(false)} />
-      )}
+      {showSettings && <SettingsModal onClose={() => setShowSettings(false)} />}
     </div>
   )
 }

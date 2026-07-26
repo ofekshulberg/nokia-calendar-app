@@ -22,22 +22,16 @@ function SettingsModal({ onClose }: SettingsModalProps) {
   return (
     <div className="settings-overlay" onClick={onClose}>
       <div className="settings-modal" onClick={(e) => e.stopPropagation()}>
-        <h2>Settings</h2>
+        <h2>⚙️ Settings</h2>
 
         {/* Theme */}
         <div className="settings-group">
           <label>Theme</label>
           <div style={{ display: 'flex', gap: '8px' }}>
-            <button
-              className={`theme-toggle ${isDarkMode ? '' : 'light'}`}
-              onClick={toggleDarkMode}
-            >
+            <button className={`theme-toggle ${isDarkMode ? '' : 'light'}`} onClick={toggleDarkMode}>
               ☀️ Light
             </button>
-            <button
-              className={`theme-toggle ${isDarkMode ? 'dark' : ''}`}
-              onClick={toggleDarkMode}
-            >
+            <button className={`theme-toggle ${isDarkMode ? 'dark' : ''}`} onClick={toggleDarkMode}>
               🌙 Dark
             </button>
           </div>
@@ -51,18 +45,14 @@ function SettingsModal({ onClose }: SettingsModalProps) {
               checked={enableVibration}
               onChange={(e) => setEnableVibration(e.target.checked)}
             />
-            Enable Vibration on Notifications
+            🔨 Enable Vibration on Notifications
           </label>
         </div>
 
         {/* Ringtone */}
         <div className="settings-group">
-          <label htmlFor="ringtone-select">Notification Ringtone</label>
-          <select
-            id="ringtone-select"
-            value={ringtone}
-            onChange={(e) => setRingtone(e.target.value)}
-          >
+          <label htmlFor="ringtone-select">🔊 Notification Sound</label>
+          <select id="ringtone-select" value={ringtone} onChange={(e) => setRingtone(e.target.value)}>
             <option value="default">Default</option>
             <option value="bell">Bell</option>
             <option value="chime">Chime</option>
@@ -77,7 +67,7 @@ function SettingsModal({ onClose }: SettingsModalProps) {
               checked={overrideSilentMode}
               onChange={(e) => setOverrideSilentMode(e.target.checked)}
             />
-            Override Silent Mode (play notifications even on silent)
+            🔔 Override Silent Mode (play notifications even on mute)
           </label>
         </div>
 
@@ -89,7 +79,7 @@ function SettingsModal({ onClose }: SettingsModalProps) {
               checked={showForegroundIndicator}
               onChange={(e) => setShowForegroundIndicator(e.target.checked)}
             />
-            Show Running Indicator (small icon in status bar)
+            📡 Show Running Indicator (icon in status bar)
           </label>
         </div>
 

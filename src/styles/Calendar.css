@@ -2,9 +2,9 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 16px;
+  padding: 12px;
   background-color: var(--color-light-bg);
-  gap: 12px;
+  gap: 8px;
 }
 
 .app.dark-mode .calendar-page {
@@ -13,10 +13,111 @@
 
 .calendar-header {
   display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.title-bar {
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
   width: 100%;
+}
+
+.calendar-title {
+  flex: 1;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-light-text);
+}
+
+.app.dark-mode .calendar-title {
+  color: var(--color-dark-text);
+}
+
+.calendar-nav-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  background-color: var(--color-light-surface);
+  padding: 10px 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.app.dark-mode .calendar-nav-controls {
+  background-color: var(--color-dark-surface);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.nav-arrow {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background-color: transparent;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: all 0.15s cubic-bezier(0.2, 0, 0, 1);
+  color: var(--color-light-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.app.dark-mode .nav-arrow {
+  color: var(--color-dark-text);
+}
+
+.nav-arrow:active {
+  background-color: var(--color-light-accent);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: scale(0.96);
+}
+
+.app.dark-mode .nav-arrow:active {
+  background-color: var(--color-dark-accent);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.year-selector {
+  text-align: center;
+  flex: 1;
+}
+
+.year-button {
+  background: none;
+  border: none;
+  font-size: 13px;
+  color: var(--color-light-text);
+  cursor: pointer;
+  padding: 4px 8px;
+  opacity: 0.7;
+  transition: all 0.15s ease;
+  font-family: inherit;
+  border-radius: 4px;
+  user-select: none;
+}
+
+.app.dark-mode .year-button {
+  color: var(--color-dark-text);
+}
+
+.year-button:active {
+  opacity: 1;
+  background-color: var(--color-light-accent);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+  transform: scale(0.98);
+}
+
+.app.dark-mode .year-button:active {
+  background-color: var(--color-dark-accent);
 }
 
 .calendar-grid-container {

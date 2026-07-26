@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNotifications, Notification } from '../context/NotificationContext'
-import { LocalNotifications } from '@capacitor/local-notifications'
+import { scheduleNotification, cancelNotification } from '../services/NotificationService'
 import '../styles/NotificationModal.css'
 
 interface NotificationModalProps {
@@ -9,18 +9,13 @@ interface NotificationModalProps {
   onClose: () => void
 }
 
-function NotificationModal({
-  dateString,
-  notificationId,
-  onClose,
-}: NotificationModalProps) {
-  const { addNotification, updateNotification, deleteNotification, getNotification } =
-    useNotifications()
+function NotificationModal({ dateString, notificationId, onClose }: NotificationModalProps) {
+  const { addNotification, updateNotification, deleteNotification, getNotification } = useNotifications()
 
   const existingNotification = notificationId ? getNotification(notificationId) : null
 
   const [date, setDate] = useState(dateString || new Date().toISOString().split('T')[0])
-  const [time, setTime] = useState(existingNotification?.time || '00:00')
+  const [time, setTime] = useState(existingNotification?.time || '09:00')
   const [message, setMessage] = useState(existingNotification?.message || '')
   const [repetition, setRepetition] = useState<'once' | 'daily' | 'weekly' | 'monthly'>(
     existingNotification?.repetition || 'once'
@@ -55,51 +50,39 @@ function NotificationModal({
       repetition,
     }
 
+    let notifId: string
     if (existingNotification) {
       updateNotification(existingNotification.id, notificationData)
+      notifId = existingNotification.id
     } else {
-      addNotification(notificationData)
+      notifId = addNotification(notificationData)
     }
 
     // Schedule native notification
-    const [hours, minutes] = time.split(':').map(Number)
-    const notifDate = new Date(date)
-    notifDate.setHours(hours, minutes, 0, 0)
-
     try {
-      await LocalNotifications.schedule({
-        notifications: [
-          {
-            id: existingNotification?.id ? parseInt(existingNotification.id.replace(/\D/g, '')) % 2147483647 : Math.floor(Math.random() * 2147483647),
-            title: 'Nokia Calendar',
-            body: message,
-            schedule: {
-              at: notifDate,
-            },
-          },
-        ],
+      await scheduleNotification({
+        id: notifId,
+        title: 'Nokia Calendar',
+        message,
+        date,
+        time,
+        repetition,
       })
     } catch (e) {
-      console.error('Failed to schedule notification:', e)
+      console.error('Failed to schedule native notification:', e)
     }
 
     onClose()
   }
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (existingNotification) {
-      deleteNotification(existingNotification.id)
       try {
-        LocalNotifications.cancel({
-          notifications: [
-            {
-              id: parseInt(existingNotification.id.replace(/\D/g, '')) % 2147483647,
-            },
-          ],
-        })
+        await cancelNotification(existingNotification.id)
       } catch (e) {
         console.error('Failed to cancel notification:', e)
       }
+      deleteNotification(existingNotification.id)
       onClose()
     }
   }
@@ -111,27 +94,17 @@ function NotificationModal({
 
         <div className="modal-group">
           <label htmlFor="notif-date">Date</label>
-          <input
-            id="notif-date"
-            type="date"
-            value={date}
-            onChange={handleDateChange}
-          />
+          <input id="notif-date" type="date" value={date} onChange={handleDateChange} />
         </div>
 
         <div className="modal-group">
           <label htmlFor="notif-time">Time</label>
-          <input
-            id="notif-time"
-            type="time"
-            value={time}
-            onChange={handleTimeChange}
-          />
+          <input id="notif-time" type="time" value={time} onChange={handleTimeChange} />
         </div>
 
         <div className="modal-group">
-          <label htmlFor="repetition">Repeat</label>
-          <select id="repetition" value={repetition} onChange={handleRepetitionChange}>
+          <label htmlFor="notif-repetition">Repeat</label>
+          <select id="notif-repetition" value={repetition} onChange={handleRepetitionChange}>
             <option value="once">Once</option>
             <option value="daily">Daily</option>
             <option value="weekly">Weekly</option>
@@ -140,14 +113,8 @@ function NotificationModal({
         </div>
 
         <div className="modal-group">
-          <label htmlFor="message">Message</label>
-          <textarea
-            id="message"
-            value={message}
-            onChange={handleMessageChange}
-            placeholder="Enter notification message"
-            rows={4}
-          />
+          <label htmlFor="notif-message">Message</label>
+          <textarea id="notif-message" value={message} onChange={handleMessageChange} />
         </div>
 
         <div className="modal-buttons">
