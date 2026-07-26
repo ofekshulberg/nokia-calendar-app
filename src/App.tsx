@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { App as CapApp } from '@capacitor/app'
 import { LocalNotifications } from '@capacitor/local-notifications'
 import Calendar from './pages/Calendar'
@@ -7,6 +6,7 @@ import { useSettings } from './context/SettingsContext'
 import { useNotifications } from './context/NotificationContext'
 import { startForegroundService } from './services/ForegroundService'
 import { scheduleNotification } from './services/NotificationService'
+import { useEffect, useState } from 'react'
 import './styles/App.css'
 
 type Page = 'calendar' | 'date-detail'
@@ -14,7 +14,7 @@ type Page = 'calendar' | 'date-detail'
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('calendar')
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
-  const { isDarkMode, showForegroundIndicator } = useSettings()
+  const { isDarkMode, showForegroundIndicator, ringtone } = useSettings()
   const { notifications } = useNotifications()
 
   useEffect(() => {
@@ -26,12 +26,19 @@ function App() {
 
     // Listen for notification clicks
     LocalNotifications.addListener('localNotificationActionPerformed', (notification) => {
-      console.log('Notification clicked:', notification)
+      console.log('✅ Notification clicked:', notification)
+      // Cancel remaining alerts when user acknowledges
+      if (notification.notification.id) {
+        const baseId = Math.floor(notification.notification.id / 12) * 12
+        for (let i = 0; i < 12; i++) {
+          LocalNotifications.cancel({ notifications: [{ id: baseId + i }] })
+        }
+      }
     })
 
     // Listen for notification delivery
     LocalNotifications.addListener('localNotificationReceived', (notification) => {
-      console.log('Notification received:', notification)
+      console.log('🔔 Notification received with sound:', notification)
     })
 
     // Handle app pause/resume
@@ -48,6 +55,7 @@ function App() {
 
   const scheduleAllPendingNotifications = () => {
     notifications.forEach((notif) => {
+      console.log('📅 Scheduling notification with ringtone:', ringtone)
       scheduleNotification({
         id: notif.id,
         title: 'Nokia Calendar',
@@ -55,6 +63,7 @@ function App() {
         date: notif.date,
         time: notif.time,
         repetition: notif.repetition,
+        sound: ringtone, // Pass the user-selected ringtone
       })
     })
   }

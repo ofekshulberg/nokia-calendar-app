@@ -12,6 +12,31 @@ export interface NotificationOptions {
   overrideSilent?: boolean
 }
 
+// Sound configuration - maps sound names to Android system sounds
+export const AVAILABLE_SOUNDS = {
+  default: 'default',
+  bell: 'bell',
+  chime: 'chime',
+  digital: 'digital',
+} as const
+
+export type SoundType = keyof typeof AVAILABLE_SOUNDS
+
+// Validate that a sound is available
+export function isSoundAvailable(sound: string): sound is SoundType {
+  return sound in AVAILABLE_SOUNDS
+}
+
+// Get the actual sound name to use
+export function getSoundName(sound?: string): string {
+  if (!sound) return 'default'
+  if (isSoundAvailable(sound)) {
+    return AVAILABLE_SOUNDS[sound]
+  }
+  console.warn(`Sound '${sound}' not available, using default`)
+  return 'default'
+}
+
 // Calculate next occurrence based on repetition
 export function getNextNotificationDate(
   baseDate: Date,
@@ -76,8 +101,11 @@ export async function scheduleNotification(options: NotificationOptions) {
       throw new Error('Invalid notification ID')
     }
 
+    // Get the sound to use - use provided sound or default
+    const soundToUse = getSoundName(options.sound || 'default')
+
     // Create 12 notifications at 5-second intervals for 60 seconds
-    // Each has vibration pattern that repeats
+    // Each has vibration pattern and sound that repeats
     const notifications = []
 
     for (let i = 0; i < 12; i++) {
@@ -90,16 +118,16 @@ export async function scheduleNotification(options: NotificationOptions) {
         schedule: {
           at: alertTime,
         },
-        sound: options.sound || 'default',
+        sound: soundToUse, // Use the validated sound
         smallIcon: 'ic_stat_icon_0',
-        autoCancel: true,
+        autoCancel: false, // Don't auto-cancel so user can dismiss
         vibrate: VIBRATION_PATTERN, // Strong 200ms on, 100ms off pattern
       })
     }
 
     await LocalNotifications.schedule({ notifications })
 
-    console.log('✅ Notification scheduled with repeating sound and vibration:', options)
+    console.log('✅ Notification scheduled with sound:', soundToUse, 'and vibration:', options)
     return true
   } catch (error) {
     console.error('❌ Error scheduling notification:', error)
@@ -159,4 +187,12 @@ export function validateNotificationOptions(options: NotificationOptions): { val
     return { valid: false, error: 'Invalid repetition type' }
   }
   return { valid: true }
+}
+
+// Test that a sound name is valid
+export function testSoundAvailability(sound: string): { available: boolean; message: string } {
+  if (isSoundAvailable(sound)) {
+    return { available: true, message: `Sound '${sound}' is available` }
+  }
+  return { available: false, message: `Sound '${sound}' is not available. Available sounds: ${Object.keys(AVAILABLE_SOUNDS).join(', ')}` }
 }
