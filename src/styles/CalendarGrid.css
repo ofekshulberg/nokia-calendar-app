@@ -1,8 +1,8 @@
 .weekday-headers {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 6px;
-  margin-bottom: 8px;
+  gap: 8px;
+  margin-bottom: 10px;
   width: 100%;
 }
 
@@ -22,7 +22,7 @@
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 6px;
+  gap: 8px;
   flex: 1;
   width: 100%;
 }
@@ -43,8 +43,8 @@
   text-align: center;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-  min-height: 90px;
-  aspect-ratio: 1 / 1.2;
+  min-height: 80px;
+  aspect-ratio: 0.9 / 1;
 }
 
 .app.dark-mode .calendar-day {

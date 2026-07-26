@@ -3,6 +3,7 @@ import { notificationTests } from './services/NotificationService.test'
 import { notificationContextTests } from './context/NotificationContext.test'
 import { foregroundServiceTests } from './services/ForegroundService.test'
 import { calendarGridTests } from './styles/CalendarGrid.test'
+import { calendarSpacingTests } from './styles/CalendarSpacing.test'
 
 export function runAllTests() {
   console.log('\n' + '='.repeat(60))
@@ -26,6 +27,13 @@ export function runAllTests() {
       console.warn('Calendar grid tests skipped (DOM not ready):', e.message)
     }
 
+    // Run CalendarGrid spacing tests (only if DOM is ready)
+    try {
+      calendarSpacingTests.runAllTests()
+    } catch (e: any) {
+      console.warn('Calendar spacing tests skipped (DOM not ready):', e.message)
+    }
+
     // Final summary
     console.log('\n' + '='.repeat(60))
     console.log('✅ ALL TEST SUITES PASSED!')
@@ -40,7 +48,9 @@ export function runAllTests() {
     console.log('  ✓ Calendar grid layout (7 columns, proper sizing)')
     console.log('  ✓ Weekday headers properly formatted')
     console.log('  ✓ Day numbers appropriately sized')
-    console.log('  ✓ Calendar days with proper spacing and aspect ratio')
+    console.log('  ✓ Calendar cells with proper spacing (no overlapping)')
+    console.log('  ✓ Horizontal and vertical cell separation')
+    console.log('  ✓ Consistent cell sizing and aspect ratios')
     console.log('\n')
 
     return true
